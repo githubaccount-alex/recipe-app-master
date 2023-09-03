@@ -1,0 +1,47 @@
+<div *ngIf="!edit" class="flex-container">
+    <div>
+        <div class="flex-element">
+            <h2>{{recipe?.name}}</h2>
+            <img *ngIf="recipe?.imageUrl; else emptyImg"
+                 [src]="recipe?.imageUrl"
+                 height="300"
+                 alt="Image of {{recipe?.name}}">
+
+            <ng-template #emptyImg>
+                <img src="assets/empty-picture.jpg"
+                     height="100px"
+                     class="image"
+                     alt="Image not found">
+            </ng-template>
+
+            <div>
+                Zutaten:
+                <div *ngFor="let ingredient of recipe?.ingredients">
+                    <p *ngIf="!ingredient.enoughInStock" style="color: red">
+                        - {{ingredient.name}} {{ingredient.amountInRecipe}} {{getUnitDisplayValue(ingredient.unitOfMeasure)}}
+                    </p>
+                    <p *ngIf="ingredient.enoughInStock">
+                        - {{ingredient.name}} {{ingredient.amountInRecipe}} {{getUnitDisplayValue(ingredient.unitOfMeasure)}}
+                    </p>
+                </div>
+            </div>
+
+            Anleitung:
+            <p class="recipe-instructions">
+                {{recipe?.instructions}}
+            </p>
+
+            <button type="button" (click)="editRecipe()">Bearbeiten</button>
+            <button type="button" (click)="delete()">Löschen</button>
+
+            <div class="tooltip">
+                <button type="button" (click)="cookRecipe(recipe?.id)" [disabled]="!isCookable()">Kochen</button>
+                <span class="tooltip-text" *ngIf="!isCookable()">Nicht genug Zutaten</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="edit">
+    <app-recipe-form [recipeToEdit]="recipe"></app-recipe-form>
+</div>

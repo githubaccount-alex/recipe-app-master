@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>recipe-list.component.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #a5c261;}
+.s3 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+recipe-list.component.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding: 10px; text-align: right&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;span&gt;</span><span class="s3">Suche: </span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;input </span><span class="s1">[(ngModel)]</span><span class="s2">=&quot;filter&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;text-align: right; position: relative&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-right: 110px&quot; </span><span class="s1">*ngIf</span><span class="s2">=&quot;cookable&quot;</span><span class="s0">&gt;</span>
+        <span class="s3">Kochbare Rezepte</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-right: 110px&quot; </span><span class="s1">*ngIf</span><span class="s2">=&quot;!cookable&quot;</span><span class="s0">&gt;</span>
+        <span class="s3">Alle Rezepte</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;div&gt;</span>
+        <span class="s0">&lt;label </span><span class="s1">id</span><span class="s2">=&quot;toggle&quot;</span>
+               <span class="s1">class</span><span class="s2">=&quot;toggle&quot;</span>
+               <span class="s1">style</span><span class="s2">=&quot;position: absolute; top: 50%; right:-20px; transform: translate(-50%, -50%)&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;input </span><span class="s1">type</span><span class="s2">=&quot;checkbox&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;span </span><span class="s1">class</span><span class="s2">=&quot;slider&quot; </span><span class="s1">(click)</span><span class="s2">=&quot;setCookable()&quot;</span><span class="s0">&gt;&lt;/span&gt;</span>
+        <span class="s0">&lt;/label&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;br&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s1">*ngIf</span><span class="s2">=&quot;!cookable&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s1">*ngFor</span><span class="s2">=&quot;let recipe of filterRecipes(recipes)&quot;</span>
+         <span class="s1">class</span><span class="s2">=&quot;flex-container&quot;</span>
+         <span class="s1">[routerLink]</span><span class="s2">=&quot;['/recipes', recipe.id]&quot;</span><span class="s0">&gt;</span>
+
+        <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-element&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h3&gt;</span><span class="s3">{{recipe.name}}</span><span class="s0">&lt;/h3&gt;</span>
+
+            <span class="s0">&lt;img </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipe.imageUrl; else emptyImg&quot;</span>
+                 <span class="s1">[src]</span><span class="s2">=&quot;recipe.imageUrl&quot;</span>
+                 <span class="s1">height</span><span class="s2">=&quot;100px&quot;</span>
+                 <span class="s1">alt</span><span class="s2">=&quot;picture of {{recipe.name}}&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;ng-template </span><span class="s1">#emptyImg</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;img </span><span class="s1">src</span><span class="s2">=&quot;assets/empty-picture.jpg&quot;</span>
+                     <span class="s1">height</span><span class="s2">=&quot;100px&quot;</span>
+                     <span class="s1">class</span><span class="s2">=&quot;image&quot;</span>
+                     <span class="s1">alt</span><span class="s2">=&quot;Image not found&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;/ng-template&gt;</span>
+            <span class="s0">&lt;br&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;tooltip&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;button </span><span class="s1">type</span><span class="s2">=&quot;button&quot;</span>
+                        <span class="s1">(click)</span><span class="s2">=&quot;cookRecipe(recipe.id); $event.stopPropagation()&quot;</span>
+                        <span class="s1">[disabled]</span><span class="s2">=&quot;!recipe.cookable&quot;</span><span class="s0">&gt;</span>
+                    <span class="s3">Kochen</span>
+                <span class="s0">&lt;/button&gt;</span>
+                <span class="s0">&lt;span </span><span class="s1">class</span><span class="s2">=&quot;tooltip-text&quot; </span><span class="s1">*ngIf</span><span class="s2">=&quot;!recipe.cookable&quot;</span><span class="s0">&gt;</span><span class="s3">Nicht genug Zutaten</span><span class="s0">&lt;/span&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s1">*ngIf</span><span class="s2">=&quot;cookable&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s1">*ngFor</span><span class="s2">=&quot;let recipe of filterRecipes(cookableRecipes)&quot; </span><span class="s1">class</span><span class="s2">=&quot;flex-container&quot; </span><span class="s1">[routerLink]</span><span class="s2">=&quot;['/recipes', recipe.id]&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-element&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h3&gt;</span><span class="s3">{{recipe.name}}</span><span class="s0">&lt;/h3&gt;</span>
+
+            <span class="s0">&lt;img </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipe.imageUrl else emptyImg&quot; </span><span class="s1">[src]</span><span class="s2">=&quot;recipe.imageUrl&quot; </span><span class="s1">height</span><span class="s2">=&quot;100px&quot; </span><span class="s1">alt</span><span class="s2">=&quot;picture of {{recipe.name}}&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;ng-template </span><span class="s1">#emptyImg</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;img </span><span class="s1">src</span><span class="s2">=&quot;assets/empty-picture.jpg&quot; </span><span class="s1">height</span><span class="s2">=&quot;100px&quot; </span><span class="s1">class</span><span class="s2">=&quot;image&quot; </span><span class="s1">alt</span><span class="s2">=&quot;no image provided&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;/ng-template&gt;</span>
+            <span class="s0">&lt;br&gt;</span>
+
+            <span class="s0">&lt;button </span><span class="s1">type</span><span class="s2">=&quot;button&quot; </span><span class="s1">(click)</span><span class="s2">=&quot;cookRecipe(recipe.id); $event.stopPropagation()&quot;</span><span class="s0">&gt;</span><span class="s3">Kochen</span><span class="s0">&lt;/button&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+</pre>
+</body>
+</html>

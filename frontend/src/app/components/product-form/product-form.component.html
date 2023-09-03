@@ -1,0 +1,68 @@
+<div class="flex-container">
+    <div (submit)="saveProduct()">
+        <div class="flex-element">
+            <form [formGroup]="productForm" *ngIf="productForm">
+                <h2 *ngIf="!existingId">Zutat hinzufügen</h2>
+                <h2 *ngIf="existingId">Zutat bearbeiten</h2>
+                <div style="padding-bottom: 10px">
+                    <label>Name <span *ngIf="productForm.controls['name'].errors?.['required']" class="inputError">*</span></label>
+                    <br>
+
+                    <input type="text" formControlName="name" placeholder="Name der Zutat" [readonly]="isEditing" class="inputField">
+
+                    <div *ngIf="productForm.controls['name'].errors?.['duplicateName']" class="inputError">
+                        Name ist bereits vergeben.
+                    </div>
+                </div>
+
+                <div style="padding-bottom: 10px">
+                    <label>Menge <span *ngIf="productForm.controls['amountInStock'].errors?.['required']" class="inputError">*</span></label>
+                    <br>
+                    <input
+                        type="number"
+                        formControlName="amountInStock"
+                        placeholder="Menge"
+                        min="0"
+                        class="inputField"
+                        oninput="validity.valid||(value='')">
+                </div>
+
+                <div style="padding-bottom: 10px">
+                    <label>Mengeneinheit</label>
+                    <br>
+                    <select formControlName="unitOfMeasure" class="inputField">
+                        <option [ngValue]="null" disabled hidden>Mengeneinheit</option>
+                        <option *ngFor="let u of units" [ngValue]="u">{{getUnitDisplayValue(u)}}</option>
+                    </select>
+                </div>
+
+                <div style="padding-bottom: 10px">
+                    <label>Bild-URL</label>
+                    <br>
+                    <input formControlName="imageUrl" placeholder="URL des Bildes" class="inputField">
+                </div>
+
+                <div style="padding-bottom: 10px">
+                    <label>Ablaufdatum</label>
+                    <br>
+                    <input type="date" formControlName="expirationDate" placeholder="Ablaufdatum" class="inputField">
+                </div>
+
+                <div style="padding-bottom: 10px">
+                    <div>
+                        <button type="submit" [disabled]="!productForm.valid">Speichern</button>
+                    </div>
+                </div>
+            </form>
+
+            <img
+                *ngIf="productForm && productForm.value?.imageUrl; else emptyImg"
+                [src]="productForm.value?.imageUrl"
+                style="height: 20em">
+
+            <ng-template #emptyImg>
+                <img src="assets/empty-picture.jpg" style="width: 20em; height: 20em">
+            </ng-template>
+        </div>
+    </div>
+</div>

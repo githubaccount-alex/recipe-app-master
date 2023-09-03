@@ -1,0 +1,20 @@
+<div class="flex-container" *ngIf="product">
+    <div>
+        <div class="flex-element">
+            <h2>{{product.name}}</h2>
+            <img *ngIf="product.imageUrl; else emptyImg" [src]="product.imageUrl" height="300" alt="Image not found">
+
+            <ng-template #emptyImg>
+                <img ngSrc="assets/empty-picture.jpg" height="300" width="300" alt="Image not found">
+            </ng-template>
+            <br/>
+
+            <h4>Menge: {{product.amountInStock | number: '1.0-3'}} {{getUnitDisplayValue(product.unitOfMeasure)}}</h4>
+            <h4>Ablaufdatum: {{product.expirationDate | date:"dd.MM.yyyy"}} </h4>
+            <br>
+
+            <button [routerLink]="['/product-form', product.id]">Bearbeiten</button>
+            <button [disabled]="deletable" (click)="deleteProduct()">Löschen</button>
+        </div>
+    </div>
+</div>

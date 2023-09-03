@@ -1,0 +1,75 @@
+<div style="padding: 10px; text-align: right">
+    <span>Suche: </span>
+    <input [(ngModel)]="filter">
+</div>
+
+<div style="text-align: right; position: relative">
+    <div style="padding-right: 110px" *ngIf="cookable">
+        Kochbare Rezepte
+    </div>
+
+    <div style="padding-right: 110px" *ngIf="!cookable">
+        Alle Rezepte
+    </div>
+
+    <div>
+        <label id="toggle"
+               class="toggle"
+               style="position: absolute; top: 50%; right:-20px; transform: translate(-50%, -50%)">
+            <input type="checkbox">
+            <span class="slider" (click)="setCookable()"></span>
+        </label>
+    </div>
+</div>
+
+<br>
+
+<div *ngIf="!cookable">
+    <div *ngFor="let recipe of filterRecipes(recipes)"
+         class="flex-container"
+         [routerLink]="['/recipes', recipe.id]">
+
+        <div class="flex-element">
+            <h3>{{recipe.name}}</h3>
+
+            <img *ngIf="recipe.imageUrl; else emptyImg"
+                 [src]="recipe.imageUrl"
+                 height="100px"
+                 alt="picture of {{recipe.name}}">
+
+            <ng-template #emptyImg>
+                <img src="assets/empty-picture.jpg"
+                     height="100px"
+                     class="image"
+                     alt="Image not found">
+            </ng-template>
+            <br>
+
+            <div class="tooltip">
+                <button type="button"
+                        (click)="cookRecipe(recipe.id); $event.stopPropagation()"
+                        [disabled]="!recipe.cookable">
+                    Kochen
+                </button>
+                <span class="tooltip-text" *ngIf="!recipe.cookable">Nicht genug Zutaten</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="cookable">
+    <div *ngFor="let recipe of filterRecipes(cookableRecipes)" class="flex-container" [routerLink]="['/recipes', recipe.id]">
+        <div class="flex-element">
+            <h3>{{recipe.name}}</h3>
+
+            <img *ngIf="recipe.imageUrl else emptyImg" [src]="recipe.imageUrl" height="100px" alt="picture of {{recipe.name}}">
+
+            <ng-template #emptyImg>
+                <img src="assets/empty-picture.jpg" height="100px" class="image" alt="no image provided">
+            </ng-template>
+            <br>
+
+            <button type="button" (click)="cookRecipe(recipe.id); $event.stopPropagation()">Kochen</button>
+        </div>
+    </div>
+</div>

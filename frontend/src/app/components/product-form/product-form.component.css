@@ -1,0 +1,44 @@
+.inputError {
+    color: red;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+* {
+    font-family: Arial, serif;
+}
+
+.inputField {
+    border-radius: 5px;
+}
+
+.ng-invalid.ng-touched {
+    border-color: red;
+}
+
+label {
+    font-weight: bold;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-content: center;
+    align-items: stretch;
+
+}
+
+.flex-element {
+    border: 5px solid #343F71;
+    background-color: #E9D8E4;
+    border-radius: 10px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 150px;
+    margin: 20px 10px 24px;
+    padding: 10px;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
+}

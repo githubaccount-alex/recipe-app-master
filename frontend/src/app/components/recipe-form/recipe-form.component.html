@@ -1,0 +1,107 @@
+<div class="flex-container">
+    <div>
+        <div class="flex-element">
+            <h2 *ngIf="recipeToEdit == undefined">Erstelle ein neues Rezept</h2>
+            <h2 *ngIf="recipeToEdit != undefined">Rezept bearbeiten</h2>
+
+            <form [formGroup]="recipeForm" style="font-weight: bold">
+                <div>
+                    <label for="name">Name
+                        <span *ngIf="recipeForm.controls['name'].errors?.['required']" class="inputError">*</span>
+                    </label>
+                    <br>
+                    <input id="name" type="text" formControlName="name" class="inputField">
+                </div>
+                <br>
+
+                Zutaten
+                <div formArrayName="ingredients">
+                    <li *ngFor="let ingredientControl of ingredientControls.controls; let i = index" [formGroupName]="i">
+                        <label for="ingredient-{{i}}-name"></label>
+                        <input
+                            list="availableIngredients"
+                            formControlName="name"
+                            class="inputField"
+                            [readonly]="ingredientControl.value.id"/>
+                        <span *ngIf="ingredientControl.get('name')!.errors?.['required']" class="inputError">*</span>
+
+                        <datalist id="availableIngredients" *ngFor="let ingredient of products">
+                            <option *ngFor="let ingredient of products" value="{{ingredient.name}}">
+                        </datalist>
+
+                        <label for="ingredient-{{i}}-amountInRecipe" style="font-weight: normal"> Menge: </label>
+                        <input
+                            id="ingredient-{{i}}-amountInRecipe"
+                            type="number"
+                            formControlName="amountInRecipe"
+                            style="width: 50px"
+                            oninput="validity.valid||(value='')"
+                            class="inputField" min="0">
+                        <span *ngIf="ingredientControl.get('amountInRecipe')!.errors?.['required']" class="inputError">*</span>
+
+                        <select id="unit" formControlName="unitOfMeasure">
+                            <option
+                                *ngFor="let unitOfMeasure of eUnitOfMeasure | keyvalue"
+                                [ngValue]="unitOfMeasure.value"
+                                [disabled]="ingredientControl.value.id">
+                                {{getUnitDisplayValue(unitOfMeasure.value)}}
+                            </option>
+                        </select>
+
+                        <button (click)="removeIngredientControl(i)">Löschen</button>
+                    </li>
+
+                    <button (click)="addIngredientControl()" type="button">
+                        Füge eine Zutat hinzu
+                    </button>
+                </div>
+                <br>
+
+                <div>
+                    <label for="instructions">Anleitung
+                        <span *ngIf="recipeForm.controls['instructions'].errors?.['required']" class="inputError">*</span>
+                    </label>
+                    <br>
+                    <textarea
+                        id="instructions"
+                        rows="4"
+                        cols="50"
+                        formControlName="instructions"
+                        class="inputField">
+                    </textarea>
+                </div>
+                <br>
+
+                <div>
+                    <label for="imageUrl">Bild-URL</label>
+                    <br>
+                    <input id="imageUrl" type="text" formControlName="imageUrl" class="inputField">
+                </div>
+                <br>
+
+                <button
+                    type="button"
+                    (click)="saveRecipe(recipeForm.value)"
+                    [disabled]="recipeForm.invalid">
+                    Speichern
+                </button>
+            </form>
+            <br>
+
+            <div class="flex-container">
+                <img *ngIf="recipeForm && recipeForm.value?.imageUrl; else emptyImg"
+                     [src]="recipeForm.value?.imageUrl"
+                     style="height: 20em"
+                     alt="picture">
+
+                <ng-template #emptyImg>
+                    <img
+                        src="assets/empty-picture.jpg"
+                        style="width: 20em; height: 20em"
+                        alt="no picture provided">
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>

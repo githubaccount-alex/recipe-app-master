@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>recipe-list.component.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+.s4 { color: #ffc66d;}
+.s5 { color: #9876aa; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+recipe-list.component.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">{ </span><span class="s2">Component</span><span class="s1">, </span><span class="s2">OnInit </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/core'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">Recipe </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/recipe'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeService </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../services/recipe.service'</span><span class="s1">;</span>
+
+<span class="s1">@</span><span class="s4">Component</span><span class="s1">({</span>
+    <span class="s1">selector: </span><span class="s3">'app-recipe-list'</span><span class="s1">,</span>
+    <span class="s1">templateUrl: </span><span class="s3">'./recipe-list.component.html'</span><span class="s1">,</span>
+    <span class="s1">styleUrls: [</span><span class="s3">'./recipe-list.component.css'</span><span class="s1">]</span>
+<span class="s1">})</span>
+<span class="s0">export class </span><span class="s2">RecipeListComponent </span><span class="s0">implements </span><span class="s2">OnInit </span><span class="s1">{</span>
+    <span class="s1">filter</span><span class="s0">: </span><span class="s2">string </span><span class="s0">= </span><span class="s3">''</span><span class="s1">;</span>
+    <span class="s1">cookable</span><span class="s0">: </span><span class="s2">boolean </span><span class="s0">= </span><span class="s5">false</span><span class="s1">;</span>
+    <span class="s1">recipes</span><span class="s0">?: </span><span class="s2">Recipe</span><span class="s1">[];</span>
+    <span class="s1">cookableRecipes</span><span class="s0">?: </span><span class="s2">Recipe</span><span class="s1">[];</span>
+
+    <span class="s0">constructor</span><span class="s1">(</span><span class="s0">private </span><span class="s2">recipeService</span><span class="s0">: </span><span class="s2">RecipeService</span><span class="s1">) { }</span>
+
+    <span class="s1">ngOnInit()</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+            <span class="s1">.</span><span class="s4">getRecipes</span><span class="s1">()</span>
+            <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">recipes </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipes </span><span class="s0">= </span><span class="s2">recipes</span><span class="s1">);</span>
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+            <span class="s1">.</span><span class="s4">getCookableRecipes</span><span class="s1">(</span><span class="s5">true</span><span class="s1">)</span>
+            <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">recipes </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">cookableRecipes </span><span class="s0">= </span><span class="s2">recipes</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">setCookable()</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">cookable </span><span class="s0">= !</span><span class="s2">this</span><span class="s1">.</span><span class="s2">cookable</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">cookRecipe(</span><span class="s2">id</span><span class="s0">: </span><span class="s2">number</span><span class="s1">)</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+            <span class="s1">.</span><span class="s4">cookRecipe</span><span class="s1">(</span><span class="s2">id</span><span class="s1">)</span>
+            <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(() </span><span class="s0">=&gt; </span><span class="s1">{</span>
+                <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+                    <span class="s1">.</span><span class="s4">getRecipes</span><span class="s1">()</span>
+                    <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">recipes </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipes </span><span class="s0">= </span><span class="s2">recipes</span><span class="s1">);</span>
+                <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+                    <span class="s1">.</span><span class="s4">getCookableRecipes</span><span class="s1">(</span><span class="s5">true</span><span class="s1">)</span>
+                    <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">recipes </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">cookableRecipes </span><span class="s0">= </span><span class="s2">recipes</span><span class="s1">);</span>
+            <span class="s1">});</span>
+    <span class="s1">}</span>
+
+    <span class="s1">filterRecipes(</span><span class="s2">recipes</span><span class="s0">: </span><span class="s2">Recipe</span><span class="s1">[] </span><span class="s0">| </span><span class="s2">undefined</span><span class="s1">) {</span>
+        <span class="s0">if </span><span class="s1">(</span><span class="s0">!</span><span class="s2">this</span><span class="s1">.</span><span class="s2">filter</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s2">recipes</span><span class="s1">;</span>
+
+        <span class="s0">return </span><span class="s2">recipes</span><span class="s1">?.</span><span class="s4">filter</span><span class="s1">(</span><span class="s2">recipe </span><span class="s0">=&gt; </span><span class="s2">recipe</span>
+            <span class="s1">.</span><span class="s2">name</span>
+            <span class="s1">.</span><span class="s4">toLowerCase</span><span class="s1">()</span>
+            <span class="s1">.</span><span class="s4">includes</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">filter</span><span class="s1">.</span><span class="s4">toLowerCase</span><span class="s1">()));</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

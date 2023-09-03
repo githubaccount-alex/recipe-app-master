@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>product-form.component.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #a5c261;}
+.s3 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+product-form.component.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-container&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s1">(submit)</span><span class="s2">=&quot;saveProduct()&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-element&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;form </span><span class="s1">[formGroup]</span><span class="s2">=&quot;productForm&quot; </span><span class="s1">*ngIf</span><span class="s2">=&quot;productForm&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h2 </span><span class="s1">*ngIf</span><span class="s2">=&quot;!existingId&quot;</span><span class="s0">&gt;</span><span class="s3">Zutat hinzufügen</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;h2 </span><span class="s1">*ngIf</span><span class="s2">=&quot;existingId&quot;</span><span class="s0">&gt;</span><span class="s3">Zutat bearbeiten</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-bottom: 10px&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s3">Name </span><span class="s0">&lt;span </span><span class="s1">*ngIf</span><span class="s2">=&quot;productForm.controls['name'].errors?.['required']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span><span class="s3">*</span><span class="s0">&lt;/span&gt;&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+
+                    <span class="s0">&lt;input </span><span class="s1">type</span><span class="s2">=&quot;text&quot; </span><span class="s1">formControlName</span><span class="s2">=&quot;name&quot; </span><span class="s1">placeholder</span><span class="s2">=&quot;Name der Zutat&quot; </span><span class="s1">[readonly]</span><span class="s2">=&quot;isEditing&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+
+                    <span class="s0">&lt;div </span><span class="s1">*ngIf</span><span class="s2">=&quot;productForm.controls['name'].errors?.['duplicateName']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span>
+                        <span class="s3">Name ist bereits vergeben.</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-bottom: 10px&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s3">Menge </span><span class="s0">&lt;span </span><span class="s1">*ngIf</span><span class="s2">=&quot;productForm.controls['amountInStock'].errors?.['required']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span><span class="s3">*</span><span class="s0">&lt;/span&gt;&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;input</span>
+                        <span class="s1">type</span><span class="s2">=&quot;number&quot;</span>
+                        <span class="s1">formControlName</span><span class="s2">=&quot;amountInStock&quot;</span>
+                        <span class="s1">placeholder</span><span class="s2">=&quot;Menge&quot;</span>
+                        <span class="s1">min</span><span class="s2">=&quot;0&quot;</span>
+                        <span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span>
+                        <span class="s1">oninput</span><span class="s2">=&quot;validity.valid||(value='')&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-bottom: 10px&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s3">Mengeneinheit</span><span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;select </span><span class="s1">formControlName</span><span class="s2">=&quot;unitOfMeasure&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;option </span><span class="s1">[ngValue]</span><span class="s2">=&quot;null&quot; </span><span class="s1">disabled hidden</span><span class="s0">&gt;</span><span class="s3">Mengeneinheit</span><span class="s0">&lt;/option&gt;</span>
+                        <span class="s0">&lt;option </span><span class="s1">*ngFor</span><span class="s2">=&quot;let u of units&quot; </span><span class="s1">[ngValue]</span><span class="s2">=&quot;u&quot;</span><span class="s0">&gt;</span><span class="s3">{{getUnitDisplayValue(u)}}</span><span class="s0">&lt;/option&gt;</span>
+                    <span class="s0">&lt;/select&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-bottom: 10px&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s3">Bild-URL</span><span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;input </span><span class="s1">formControlName</span><span class="s2">=&quot;imageUrl&quot; </span><span class="s1">placeholder</span><span class="s2">=&quot;URL des Bildes&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-bottom: 10px&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s3">Ablaufdatum</span><span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;input </span><span class="s1">type</span><span class="s2">=&quot;date&quot; </span><span class="s1">formControlName</span><span class="s2">=&quot;expirationDate&quot; </span><span class="s1">placeholder</span><span class="s2">=&quot;Ablaufdatum&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s1">style</span><span class="s2">=&quot;padding-bottom: 10px&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div&gt;</span>
+                        <span class="s0">&lt;button </span><span class="s1">type</span><span class="s2">=&quot;submit&quot; </span><span class="s1">[disabled]</span><span class="s2">=&quot;!productForm.valid&quot;</span><span class="s0">&gt;</span><span class="s3">Speichern</span><span class="s0">&lt;/button&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;/form&gt;</span>
+
+            <span class="s0">&lt;img</span>
+                <span class="s1">*ngIf</span><span class="s2">=&quot;productForm &amp;&amp; productForm.value?.imageUrl; else emptyImg&quot;</span>
+                <span class="s1">[src]</span><span class="s2">=&quot;productForm.value?.imageUrl&quot;</span>
+                <span class="s1">style</span><span class="s2">=&quot;height: 20em&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;ng-template </span><span class="s1">#emptyImg</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;img </span><span class="s1">src</span><span class="s2">=&quot;assets/empty-picture.jpg&quot; </span><span class="s1">style</span><span class="s2">=&quot;width: 20em; height: 20em&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;/ng-template&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+</pre>
+</body>
+</html>

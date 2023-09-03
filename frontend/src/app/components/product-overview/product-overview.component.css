@@ -1,0 +1,11 @@
+* {
+    font-family: Arial, serif;
+}
+
+.flex-container {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    align-content: stretch;
+    align-items: stretch;
+}

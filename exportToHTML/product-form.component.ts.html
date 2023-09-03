@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>product-form.component.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+.s4 { color: #ffc66d;}
+.s5 { color: #9876aa; font-style: italic;}
+.s6 { color: #6897bb; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+product-form.component.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">{ </span><span class="s2">Component</span><span class="s1">, </span><span class="s2">OnInit </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/core'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">AbstractControl</span><span class="s1">, </span><span class="s2">FormBuilder</span><span class="s1">, </span><span class="s2">FormGroup</span><span class="s1">, </span><span class="s2">ValidationErrors</span><span class="s1">, </span><span class="s2">ValidatorFn</span><span class="s1">, </span><span class="s2">Validators </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/forms'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ActivatedRoute</span><span class="s1">, </span><span class="s2">Router </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/router'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">map</span><span class="s1">, </span><span class="s2">Observable </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'rxjs'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">getUnitDisplayValue</span><span class="s1">, </span><span class="s2">UnitOfMeasure </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/unitOfMeasure'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">Product </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/product'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductService </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../services/product.service'</span><span class="s1">;</span>
+
+<span class="s1">@</span><span class="s4">Component</span><span class="s1">({</span>
+    <span class="s1">selector: </span><span class="s3">'app-product-form'</span><span class="s1">,</span>
+    <span class="s1">templateUrl: </span><span class="s3">'./product-form.component.html'</span><span class="s1">,</span>
+    <span class="s1">styleUrls: [</span><span class="s3">'./product-form.component.css'</span><span class="s1">]</span>
+<span class="s1">})</span>
+<span class="s0">export class </span><span class="s2">ProductFormComponent </span><span class="s0">implements </span><span class="s2">OnInit</span><span class="s1">{</span>
+    <span class="s1">productForm</span><span class="s0">?: </span><span class="s2">FormGroup</span><span class="s1">;</span>
+    <span class="s1">units</span><span class="s0">: </span><span class="s2">string</span><span class="s1">[] </span><span class="s0">= </span><span class="s2">Object</span><span class="s1">.</span><span class="s4">values</span><span class="s1">(</span><span class="s2">UnitOfMeasure</span><span class="s1">);</span>
+    <span class="s1">existingId</span><span class="s0">: </span><span class="s2">number </span><span class="s0">| </span><span class="s2">null </span><span class="s0">= </span><span class="s5">null</span><span class="s1">;</span>
+    <span class="s1">getUnitDisplayValue</span><span class="s0">: </span><span class="s1">(</span><span class="s2">unit</span><span class="s0">: </span><span class="s2">string</span><span class="s1">) </span><span class="s0">=&gt; </span><span class="s2">string </span><span class="s0">= </span><span class="s2">getUnitDisplayValue</span><span class="s1">;</span>
+
+    <span class="s0">constructor</span><span class="s1">(</span><span class="s0">private </span><span class="s2">formBuilder</span><span class="s0">: </span><span class="s2">FormBuilder</span><span class="s1">,</span>
+                <span class="s0">private </span><span class="s2">productService</span><span class="s0">: </span><span class="s2">ProductService</span><span class="s1">,</span>
+                <span class="s0">private </span><span class="s2">router</span><span class="s0">: </span><span class="s2">Router</span><span class="s1">,</span>
+                <span class="s0">private </span><span class="s2">activatedRoute</span><span class="s0">: </span><span class="s2">ActivatedRoute</span><span class="s1">) { }</span>
+
+    <span class="s1">ngOnInit()</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s0">const </span><span class="s1">id </span><span class="s0">= </span><span class="s2">this</span><span class="s1">.</span><span class="s2">activatedRoute</span><span class="s1">.</span><span class="s2">snapshot</span><span class="s1">.</span><span class="s2">paramMap</span><span class="s1">.</span><span class="s4">get</span><span class="s1">(</span><span class="s3">'id'</span><span class="s1">);</span>
+
+        <span class="s0">if </span><span class="s1">(</span><span class="s2">id</span><span class="s1">) {</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">existingId </span><span class="s0">= </span><span class="s2">Number</span><span class="s1">.</span><span class="s4">parseInt</span><span class="s1">(</span><span class="s2">id</span><span class="s1">);</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">productForm</span><span class="s1">?.</span><span class="s2">controls</span><span class="s1">[</span><span class="s3">'name'</span><span class="s1">].</span><span class="s4">setErrors</span><span class="s1">({notEditable: </span><span class="s5">true</span><span class="s1">});</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">productService</span>
+                <span class="s1">.</span><span class="s4">getProductsById</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">existingId</span><span class="s1">)</span>
+                <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">product </span><span class="s0">=&gt;</span>
+                    <span class="s2">this</span><span class="s1">.</span><span class="s2">productForm </span><span class="s0">= </span><span class="s2">this</span><span class="s1">.</span><span class="s2">formBuilder</span><span class="s1">.</span><span class="s4">group</span><span class="s1">({</span>
+                        <span class="s1">name: [</span>
+                            <span class="s2">product</span><span class="s1">.</span><span class="s2">name</span><span class="s1">,</span>
+                            <span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span>
+                        <span class="s1">],</span>
+                        <span class="s1">amountInStock: [</span>
+                            <span class="s2">product</span><span class="s1">.</span><span class="s2">amountInStock</span><span class="s1">,</span>
+                            <span class="s1">[</span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s4">min</span><span class="s1">(</span><span class="s6">0</span><span class="s1">)]</span>
+                        <span class="s1">],</span>
+                        <span class="s1">unitOfMeasure: [</span>
+                            <span class="s2">product</span><span class="s1">.</span><span class="s2">unitOfMeasure</span><span class="s1">,</span>
+                            <span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span>
+                        <span class="s1">],</span>
+                        <span class="s1">expirationDate: [</span>
+                            <span class="s2">product</span><span class="s1">.</span><span class="s2">expirationDate</span><span class="s1">,</span>
+                            <span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span>
+                        <span class="s1">],</span>
+                        <span class="s1">imageUrl: [</span>
+                            <span class="s2">product</span><span class="s1">.</span><span class="s2">imageUrl</span>
+                        <span class="s1">]</span>
+                    <span class="s1">}));</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">productForm </span><span class="s0">= </span><span class="s2">this</span><span class="s1">.</span><span class="s2">formBuilder</span><span class="s1">.</span><span class="s4">group</span><span class="s1">({</span>
+                <span class="s1">name: [</span>
+                    <span class="s5">null</span><span class="s1">, {</span>
+                        <span class="s1">validators: [</span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">],</span>
+                        <span class="s1">asyncValidators: [</span><span class="s2">this</span><span class="s1">.</span><span class="s4">productNameValidator</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">productService</span><span class="s1">)]</span>
+                    <span class="s1">}</span>
+                <span class="s1">],</span>
+                <span class="s1">amountInStock: [</span>
+                    <span class="s5">null</span><span class="s1">,</span>
+                    <span class="s1">[</span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s4">min</span><span class="s1">(</span><span class="s6">0</span><span class="s1">)]</span>
+                <span class="s1">],</span>
+                <span class="s1">unitOfMeasure: [</span>
+                    <span class="s5">null</span><span class="s1">,</span>
+                    <span class="s1">[</span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">]</span>
+                <span class="s1">],</span>
+                <span class="s1">expirationDate: [</span>
+                    <span class="s5">null</span><span class="s1">,</span>
+                    <span class="s1">[</span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">]</span>
+                <span class="s1">],</span>
+                <span class="s1">imageUrl: [</span><span class="s5">null</span><span class="s1">]</span>
+            <span class="s1">});</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">saveProduct()</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s0">if </span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">existingId</span><span class="s1">) {</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">productService</span>
+                <span class="s1">.</span><span class="s4">updateProducts</span><span class="s1">({</span><span class="s0">...</span><span class="s2">this</span><span class="s1">.</span><span class="s2">productForm</span><span class="s1">?.</span><span class="s2">value</span><span class="s1">, id: </span><span class="s2">this</span><span class="s1">.</span><span class="s2">existingId</span><span class="s1">})</span>
+                <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">product </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">router</span><span class="s1">.</span><span class="s4">navigate</span><span class="s1">([</span><span class="s3">'/product-detail'</span><span class="s1">, </span><span class="s2">product</span><span class="s1">.</span><span class="s2">id</span><span class="s1">]));</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">productService</span>
+                <span class="s1">.</span><span class="s4">createProducts</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">productForm</span><span class="s1">?.</span><span class="s2">value</span><span class="s1">)</span>
+                <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(() </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">router</span><span class="s1">.</span><span class="s4">navigate</span><span class="s1">([</span><span class="s3">'/product-overview'</span><span class="s1">]));</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">get </span><span class="s1">isEditing()</span><span class="s0">: </span><span class="s2">boolean </span><span class="s1">{</span>
+        <span class="s0">return !!</span><span class="s2">this</span><span class="s1">.</span><span class="s2">existingId</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">productNameValidator(</span><span class="s2">productService</span><span class="s0">: </span><span class="s2">ProductService</span><span class="s1">)</span><span class="s0">: </span><span class="s2">ValidatorFn </span><span class="s1">{</span>
+        <span class="s0">return </span><span class="s1">(</span><span class="s2">control</span><span class="s0">: </span><span class="s2">AbstractControl</span><span class="s1">)</span><span class="s0">: </span><span class="s2">Observable</span><span class="s1">&lt;</span><span class="s2">ValidationErrors </span><span class="s0">| </span><span class="s2">null</span><span class="s1">&gt; </span><span class="s0">=&gt; </span><span class="s1">{</span>
+            <span class="s0">const </span><span class="s1">productName </span><span class="s0">= </span><span class="s2">control</span><span class="s1">.</span><span class="s2">value</span><span class="s1">;</span>
+            <span class="s0">return </span><span class="s2">productService</span>
+                <span class="s1">.</span><span class="s4">getAllProducts</span><span class="s1">()</span>
+                <span class="s1">.</span><span class="s4">pipe</span><span class="s1">(</span><span class="s4">map</span><span class="s1">((</span><span class="s2">products</span><span class="s0">: </span><span class="s2">Product</span><span class="s1">[]) </span><span class="s0">=&gt; </span><span class="s1">{</span>
+                        <span class="s0">const </span><span class="s1">existingProduct </span><span class="s0">= </span><span class="s2">products</span><span class="s1">.</span><span class="s4">find</span><span class="s1">(</span><span class="s2">product </span><span class="s0">=&gt; </span><span class="s2">product</span><span class="s1">.</span><span class="s2">name </span><span class="s0">=== </span><span class="s2">productName</span><span class="s1">);</span>
+                        <span class="s0">return </span><span class="s2">existingProduct </span><span class="s0">? </span><span class="s1">{ duplicateName: </span><span class="s5">true </span><span class="s1">} </span><span class="s0">: </span><span class="s5">null</span><span class="s1">;</span>
+                <span class="s1">}));</span>
+        <span class="s1">};</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

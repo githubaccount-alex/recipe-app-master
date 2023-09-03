@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>recipe-details.component.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #a5c261;}
+.s3 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+recipe-details.component.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;div </span><span class="s1">*ngIf</span><span class="s2">=&quot;!edit&quot; </span><span class="s1">class</span><span class="s2">=&quot;flex-container&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div&gt;</span>
+        <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-element&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h2&gt;</span><span class="s3">{{recipe?.name}}</span><span class="s0">&lt;/h2&gt;</span>
+            <span class="s0">&lt;img </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipe?.imageUrl; else emptyImg&quot;</span>
+                 <span class="s1">[src]</span><span class="s2">=&quot;recipe?.imageUrl&quot;</span>
+                 <span class="s1">height</span><span class="s2">=&quot;300&quot;</span>
+                 <span class="s1">alt</span><span class="s2">=&quot;Image of {{recipe?.name}}&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;ng-template </span><span class="s1">#emptyImg</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;img </span><span class="s1">src</span><span class="s2">=&quot;assets/empty-picture.jpg&quot;</span>
+                     <span class="s1">height</span><span class="s2">=&quot;100px&quot;</span>
+                     <span class="s1">class</span><span class="s2">=&quot;image&quot;</span>
+                     <span class="s1">alt</span><span class="s2">=&quot;Image not found&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;/ng-template&gt;</span>
+
+            <span class="s0">&lt;div&gt;</span>
+                <span class="s3">Zutaten:</span>
+                <span class="s0">&lt;div </span><span class="s1">*ngFor</span><span class="s2">=&quot;let ingredient of recipe?.ingredients&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;p </span><span class="s1">*ngIf</span><span class="s2">=&quot;!ingredient.enoughInStock&quot; </span><span class="s1">style</span><span class="s2">=&quot;color: red&quot;</span><span class="s0">&gt;</span>
+                        <span class="s3">- {{ingredient.name}} {{ingredient.amountInRecipe}} {{getUnitDisplayValue(ingredient.unitOfMeasure)}}</span>
+                    <span class="s0">&lt;/p&gt;</span>
+                    <span class="s0">&lt;p </span><span class="s1">*ngIf</span><span class="s2">=&quot;ingredient.enoughInStock&quot;</span><span class="s0">&gt;</span>
+                        <span class="s3">- {{ingredient.name}} {{ingredient.amountInRecipe}} {{getUnitDisplayValue(ingredient.unitOfMeasure)}}</span>
+                    <span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s3">Anleitung:</span>
+            <span class="s0">&lt;p </span><span class="s1">class</span><span class="s2">=&quot;recipe-instructions&quot;</span><span class="s0">&gt;</span>
+                <span class="s3">{{recipe?.instructions}}</span>
+            <span class="s0">&lt;/p&gt;</span>
+
+            <span class="s0">&lt;button </span><span class="s1">type</span><span class="s2">=&quot;button&quot; </span><span class="s1">(click)</span><span class="s2">=&quot;editRecipe()&quot;</span><span class="s0">&gt;</span><span class="s3">Bearbeiten</span><span class="s0">&lt;/button&gt;</span>
+            <span class="s0">&lt;button </span><span class="s1">type</span><span class="s2">=&quot;button&quot; </span><span class="s1">(click)</span><span class="s2">=&quot;delete()&quot;</span><span class="s0">&gt;</span><span class="s3">Löschen</span><span class="s0">&lt;/button&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;tooltip&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;button </span><span class="s1">type</span><span class="s2">=&quot;button&quot; </span><span class="s1">(click)</span><span class="s2">=&quot;cookRecipe(recipe?.id)&quot; </span><span class="s1">[disabled]</span><span class="s2">=&quot;!isCookable()&quot;</span><span class="s0">&gt;</span><span class="s3">Kochen</span><span class="s0">&lt;/button&gt;</span>
+                <span class="s0">&lt;span </span><span class="s1">class</span><span class="s2">=&quot;tooltip-text&quot; </span><span class="s1">*ngIf</span><span class="s2">=&quot;!isCookable()&quot;</span><span class="s0">&gt;</span><span class="s3">Nicht genug Zutaten</span><span class="s0">&lt;/span&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s1">*ngIf</span><span class="s2">=&quot;edit&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;app-recipe-form </span><span class="s1">[recipeToEdit]</span><span class="s2">=&quot;recipe&quot;</span><span class="s0">&gt;&lt;/app-recipe-form&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<div style="padding: 10px; float: right">
+    <div>
+        <div>
+            <span>Suche: </span>
+            <input [(ngModel)]="filter">
+        </div>
+    </div>
+</div>
+
+<div class="flex-container">
+    <app-product-item
+        *ngFor="let product of filterProducts(products)"
+        [product]="product"
+        [routerLink]="['/product-detail', product.id]">
+    </app-product-item>
+</div>

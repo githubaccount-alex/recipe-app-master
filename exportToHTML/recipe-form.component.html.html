@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>recipe-form.component.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #a5c261;}
+.s3 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+recipe-form.component.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-container&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div&gt;</span>
+        <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-element&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h2 </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipeToEdit == undefined&quot;</span><span class="s0">&gt;</span><span class="s3">Erstelle ein neues Rezept</span><span class="s0">&lt;/h2&gt;</span>
+            <span class="s0">&lt;h2 </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipeToEdit != undefined&quot;</span><span class="s0">&gt;</span><span class="s3">Rezept bearbeiten</span><span class="s0">&lt;/h2&gt;</span>
+
+            <span class="s0">&lt;form </span><span class="s1">[formGroup]</span><span class="s2">=&quot;recipeForm&quot; </span><span class="s1">style</span><span class="s2">=&quot;font-weight: bold&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div&gt;</span>
+                    <span class="s0">&lt;label </span><span class="s1">for</span><span class="s2">=&quot;name&quot;</span><span class="s0">&gt;</span><span class="s3">Name</span>
+                        <span class="s0">&lt;span </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipeForm.controls['name'].errors?.['required']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span><span class="s3">*</span><span class="s0">&lt;/span&gt;</span>
+                    <span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;input </span><span class="s1">id</span><span class="s2">=&quot;name&quot; </span><span class="s1">type</span><span class="s2">=&quot;text&quot; </span><span class="s1">formControlName</span><span class="s2">=&quot;name&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;br&gt;</span>
+
+                <span class="s3">Zutaten</span>
+                <span class="s0">&lt;div </span><span class="s1">formArrayName</span><span class="s2">=&quot;ingredients&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;li </span><span class="s1">*ngFor</span><span class="s2">=&quot;let ingredientControl of ingredientControls.controls; let i = index&quot; </span><span class="s1">[formGroupName]</span><span class="s2">=&quot;i&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;label </span><span class="s1">for</span><span class="s2">=&quot;ingredient-{{i}}-name&quot;</span><span class="s0">&gt;&lt;/label&gt;</span>
+                        <span class="s0">&lt;input</span>
+                            <span class="s1">list</span><span class="s2">=&quot;availableIngredients&quot;</span>
+                            <span class="s1">formControlName</span><span class="s2">=&quot;name&quot;</span>
+                            <span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span>
+                            <span class="s1">[readonly]</span><span class="s2">=&quot;ingredientControl.value.id&quot;</span><span class="s0">/&gt;</span>
+                        <span class="s0">&lt;span </span><span class="s1">*ngIf</span><span class="s2">=&quot;ingredientControl.get('name')!.errors?.['required']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span><span class="s3">*</span><span class="s0">&lt;/span&gt;</span>
+
+                        <span class="s0">&lt;datalist </span><span class="s1">id</span><span class="s2">=&quot;availableIngredients&quot; </span><span class="s1">*ngFor</span><span class="s2">=&quot;let ingredient of products&quot;</span><span class="s0">&gt;</span>
+                            <span class="s0">&lt;option </span><span class="s1">*ngFor</span><span class="s2">=&quot;let ingredient of products&quot; </span><span class="s1">value</span><span class="s2">=&quot;{{ingredient.name}}&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;/datalist&gt;</span>
+
+                        <span class="s0">&lt;label </span><span class="s1">for</span><span class="s2">=&quot;ingredient-{{i}}-amountInRecipe&quot; </span><span class="s1">style</span><span class="s2">=&quot;font-weight: normal&quot;</span><span class="s0">&gt; </span><span class="s3">Menge: </span><span class="s0">&lt;/label&gt;</span>
+                        <span class="s0">&lt;input</span>
+                            <span class="s1">id</span><span class="s2">=&quot;ingredient-{{i}}-amountInRecipe&quot;</span>
+                            <span class="s1">type</span><span class="s2">=&quot;number&quot;</span>
+                            <span class="s1">formControlName</span><span class="s2">=&quot;amountInRecipe&quot;</span>
+                            <span class="s1">style</span><span class="s2">=&quot;width: 50px&quot;</span>
+                            <span class="s1">oninput</span><span class="s2">=&quot;validity.valid||(value='')&quot;</span>
+                            <span class="s1">class</span><span class="s2">=&quot;inputField&quot; </span><span class="s1">min</span><span class="s2">=&quot;0&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;span </span><span class="s1">*ngIf</span><span class="s2">=&quot;ingredientControl.get('amountInRecipe')!.errors?.['required']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span><span class="s3">*</span><span class="s0">&lt;/span&gt;</span>
+
+                        <span class="s0">&lt;select </span><span class="s1">id</span><span class="s2">=&quot;unit&quot; </span><span class="s1">formControlName</span><span class="s2">=&quot;unitOfMeasure&quot;</span><span class="s0">&gt;</span>
+                            <span class="s0">&lt;option</span>
+                                <span class="s1">*ngFor</span><span class="s2">=&quot;let unitOfMeasure of eUnitOfMeasure | keyvalue&quot;</span>
+                                <span class="s1">[ngValue]</span><span class="s2">=&quot;unitOfMeasure.value&quot;</span>
+                                <span class="s1">[disabled]</span><span class="s2">=&quot;ingredientControl.value.id&quot;</span><span class="s0">&gt;</span>
+                                <span class="s3">{{getUnitDisplayValue(unitOfMeasure.value)}}</span>
+                            <span class="s0">&lt;/option&gt;</span>
+                        <span class="s0">&lt;/select&gt;</span>
+
+                        <span class="s0">&lt;button </span><span class="s1">(click)</span><span class="s2">=&quot;removeIngredientControl(i)&quot;</span><span class="s0">&gt;</span><span class="s3">Löschen</span><span class="s0">&lt;/button&gt;</span>
+                    <span class="s0">&lt;/li&gt;</span>
+
+                    <span class="s0">&lt;button </span><span class="s1">(click)</span><span class="s2">=&quot;addIngredientControl()&quot; </span><span class="s1">type</span><span class="s2">=&quot;button&quot;</span><span class="s0">&gt;</span>
+                        <span class="s3">Füge eine Zutat hinzu</span>
+                    <span class="s0">&lt;/button&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;br&gt;</span>
+
+                <span class="s0">&lt;div&gt;</span>
+                    <span class="s0">&lt;label </span><span class="s1">for</span><span class="s2">=&quot;instructions&quot;</span><span class="s0">&gt;</span><span class="s3">Anleitung</span>
+                        <span class="s0">&lt;span </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipeForm.controls['instructions'].errors?.['required']&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputError&quot;</span><span class="s0">&gt;</span><span class="s3">*</span><span class="s0">&lt;/span&gt;</span>
+                    <span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;textarea</span>
+                        <span class="s1">id</span><span class="s2">=&quot;instructions&quot;</span>
+                        <span class="s1">rows</span><span class="s2">=&quot;4&quot;</span>
+                        <span class="s1">cols</span><span class="s2">=&quot;50&quot;</span>
+                        <span class="s1">formControlName</span><span class="s2">=&quot;instructions&quot;</span>
+                        <span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;/textarea&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;br&gt;</span>
+
+                <span class="s0">&lt;div&gt;</span>
+                    <span class="s0">&lt;label </span><span class="s1">for</span><span class="s2">=&quot;imageUrl&quot;</span><span class="s0">&gt;</span><span class="s3">Bild-URL</span><span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;br&gt;</span>
+                    <span class="s0">&lt;input </span><span class="s1">id</span><span class="s2">=&quot;imageUrl&quot; </span><span class="s1">type</span><span class="s2">=&quot;text&quot; </span><span class="s1">formControlName</span><span class="s2">=&quot;imageUrl&quot; </span><span class="s1">class</span><span class="s2">=&quot;inputField&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;br&gt;</span>
+
+                <span class="s0">&lt;button</span>
+                    <span class="s1">type</span><span class="s2">=&quot;button&quot;</span>
+                    <span class="s1">(click)</span><span class="s2">=&quot;saveRecipe(recipeForm.value)&quot;</span>
+                    <span class="s1">[disabled]</span><span class="s2">=&quot;recipeForm.invalid&quot;</span><span class="s0">&gt;</span>
+                    <span class="s3">Speichern</span>
+                <span class="s0">&lt;/button&gt;</span>
+            <span class="s0">&lt;/form&gt;</span>
+            <span class="s0">&lt;br&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s1">class</span><span class="s2">=&quot;flex-container&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;img </span><span class="s1">*ngIf</span><span class="s2">=&quot;recipeForm &amp;&amp; recipeForm.value?.imageUrl; else emptyImg&quot;</span>
+                     <span class="s1">[src]</span><span class="s2">=&quot;recipeForm.value?.imageUrl&quot;</span>
+                     <span class="s1">style</span><span class="s2">=&quot;height: 20em&quot;</span>
+                     <span class="s1">alt</span><span class="s2">=&quot;picture&quot;</span><span class="s0">&gt;</span>
+
+                <span class="s0">&lt;ng-template </span><span class="s1">#emptyImg</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;img</span>
+                        <span class="s1">src</span><span class="s2">=&quot;assets/empty-picture.jpg&quot;</span>
+                        <span class="s1">style</span><span class="s2">=&quot;width: 20em; height: 20em&quot;</span>
+                        <span class="s1">alt</span><span class="s2">=&quot;no picture provided&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/ng-template&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+</pre>
+</body>
+</html>

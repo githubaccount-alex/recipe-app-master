@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>app.module.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+.s4 { color: #ffc66d;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+app.module.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">{ </span><span class="s2">NgModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/core'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">BrowserModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/platform-browser'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">HttpClientModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/common/http'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">FormsModule</span><span class="s1">, </span><span class="s2">ReactiveFormsModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/forms'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">NgOptimizedImage </span><span class="s1">} </span><span class="s0">from </span><span class="s3">&quot;@angular/common&quot;</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">AppRoutingModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./app-routing.module'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">AppComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./app.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeListComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/recipe-list/recipe-list.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeDetailsComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/recipe-details/recipe-details.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeFormComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/recipe-form/recipe-form.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductDetailsComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-details/product-details.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductFormComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-form/product-form.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductItemComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-item/product-item.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductOverviewComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-overview/product-overview.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ErrorPageComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/error-page/error-page.component'</span><span class="s1">;</span>
+
+<span class="s1">@</span><span class="s4">NgModule</span><span class="s1">({</span>
+    <span class="s1">declarations: [</span>
+        <span class="s2">AppComponent</span><span class="s1">,</span>
+        <span class="s2">RecipeListComponent</span><span class="s1">,</span>
+        <span class="s2">RecipeDetailsComponent</span><span class="s1">,</span>
+        <span class="s2">RecipeFormComponent</span><span class="s1">,</span>
+        <span class="s2">ProductDetailsComponent</span><span class="s1">,</span>
+        <span class="s2">ProductFormComponent</span><span class="s1">,</span>
+        <span class="s2">ProductItemComponent</span><span class="s1">,</span>
+        <span class="s2">ProductOverviewComponent</span><span class="s1">,</span>
+        <span class="s2">ErrorPageComponent</span>
+    <span class="s1">],</span>
+    <span class="s1">imports: [</span>
+        <span class="s2">BrowserModule</span><span class="s1">,</span>
+        <span class="s2">AppRoutingModule</span><span class="s1">,</span>
+        <span class="s2">ReactiveFormsModule</span><span class="s1">,</span>
+        <span class="s2">FormsModule</span><span class="s1">,</span>
+        <span class="s2">HttpClientModule</span><span class="s1">,</span>
+        <span class="s2">NgOptimizedImage</span>
+    <span class="s1">],</span>
+    <span class="s1">providers: [</span><span class="s2">HttpClientModule</span><span class="s1">],</span>
+    <span class="s1">bootstrap: [</span><span class="s2">AppComponent</span><span class="s1">]</span>
+<span class="s1">})</span>
+<span class="s0">export class </span><span class="s2">AppModule </span><span class="s1">{ }</span>
+</pre>
+</body>
+</html>

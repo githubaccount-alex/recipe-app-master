@@ -1,0 +1,119 @@
+* {
+    font-family: Arial, serif;
+}
+
+.flex-container {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    align-content: stretch;
+    align-items: stretch;
+}
+
+.flex-element {
+    border: 5px solid #343F71;
+    background-color: #E9D8E4;
+    border-radius: 10px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 150px;
+    margin: 20px 10px 24px;
+    padding: 10px;
+    flex-flow: row wrap;
+    align-content: flex-start;
+}
+
+.flex-container:hover {
+    animation:scaling 0.2s;
+}
+
+@keyframes scaling {
+    0% { transform:scale3d( 1, 1, 1 ); }
+    25% { transform:scale3d( 0.98, 0.98, 0.98 ) rotate(5deg); }
+    50% { transform:scale3d( 0.95, 0.95, 0.95 ) rotate(10deg); }
+    75% { transform:scale3d( 0.98, 0.98, 0.98 ) rotate(5deg); }
+    100% { transform:scale3d( 1, 1, 1 ); }
+}
+
+.toggle {
+    --width: 80px;
+    --height: calc(var(--width) / 3);
+
+    position: relative;
+    display: inline-block;
+    width: var(--width);
+    height: var(--height);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: var(--height);
+    cursor: pointer;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--height);
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle .slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--height));
+    height: calc(var(--height));
+    border-radius: calc(var(--height) / 2);
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked + .slider {
+    background-color: #2196F3;
+}
+.toggle input:checked + .slider::before {
+    transform: translateX(calc(var(--width) - var(--height)));
+}
+
+button {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

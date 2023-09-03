@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>recipe-form.component.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+.s4 { color: #ffc66d;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+recipe-form.component.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">{ </span><span class="s2">Component</span><span class="s1">, </span><span class="s2">Input</span><span class="s1">, </span><span class="s2">OnInit </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/core'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">Recipe </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/recipe'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">FormArray</span><span class="s1">, </span><span class="s2">FormControl</span><span class="s1">, </span><span class="s2">FormGroup</span><span class="s1">, </span><span class="s2">NonNullableFormBuilder</span><span class="s1">, </span><span class="s2">Validators </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/forms'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">Router </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/router'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">Ingredient </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/ingredient'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">getUnitDisplayValue</span><span class="s1">, </span><span class="s2">UnitOfMeasure </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/unitOfMeasure'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductService </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../services/product.service'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">Product </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../models/product'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeService </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'../../services/recipe.service'</span><span class="s1">;</span>
+
+<span class="s1">@</span><span class="s4">Component</span><span class="s1">({</span>
+    <span class="s1">selector: </span><span class="s3">'app-recipe-form'</span><span class="s1">,</span>
+    <span class="s1">templateUrl: </span><span class="s3">'./recipe-form.component.html'</span><span class="s1">,</span>
+    <span class="s1">styleUrls: [</span><span class="s3">'./recipe-form.component.css'</span><span class="s1">]</span>
+<span class="s1">})</span>
+<span class="s0">export class </span><span class="s2">RecipeFormComponent </span><span class="s0">implements </span><span class="s2">OnInit</span><span class="s1">{</span>
+    <span class="s1">eUnitOfMeasure </span><span class="s0">= </span><span class="s2">UnitOfMeasure</span><span class="s1">;</span>
+    <span class="s1">recipeForm</span><span class="s0">: </span><span class="s2">FormGroup</span><span class="s1">;</span>
+    <span class="s1">products</span><span class="s0">?: </span><span class="s2">Product</span><span class="s1">[];</span>
+    <span class="s1">getUnitDisplayValue</span><span class="s0">: </span><span class="s1">(</span><span class="s2">unit</span><span class="s0">: </span><span class="s2">string</span><span class="s1">) </span><span class="s0">=&gt; </span><span class="s2">string </span><span class="s0">= </span><span class="s2">getUnitDisplayValue</span><span class="s1">;</span>
+
+    <span class="s1">@</span><span class="s4">Input</span><span class="s1">()</span>
+    <span class="s1">recipeToEdit</span><span class="s0">?: </span><span class="s2">Recipe</span><span class="s1">;</span>
+
+    <span class="s0">constructor</span><span class="s1">(</span><span class="s0">private </span><span class="s2">fb</span><span class="s0">: </span><span class="s2">NonNullableFormBuilder</span><span class="s1">,</span>
+                <span class="s0">private </span><span class="s2">productService</span><span class="s0">: </span><span class="s2">ProductService</span><span class="s1">,</span>
+                <span class="s0">private </span><span class="s2">recipeService</span><span class="s0">: </span><span class="s2">RecipeService</span><span class="s1">,</span>
+                <span class="s0">private </span><span class="s2">router</span><span class="s0">: </span><span class="s2">Router</span><span class="s1">) {</span>
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeForm </span><span class="s0">= </span><span class="s2">this</span><span class="s1">.</span><span class="s2">fb</span><span class="s1">.</span><span class="s4">group</span><span class="s1">({</span>
+            <span class="s1">id: </span><span class="s0">new </span><span class="s2">FormControl</span><span class="s1">,</span>
+            <span class="s1">name: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">?.</span><span class="s2">name</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">),</span>
+            <span class="s1">instructions: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">?.</span><span class="s2">instructions</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">),</span>
+            <span class="s1">imageUrl: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">?.</span><span class="s2">instructions</span><span class="s1">),</span>
+            <span class="s1">ingredients: </span><span class="s2">this</span><span class="s1">.</span><span class="s2">fb</span><span class="s1">.</span><span class="s4">array</span><span class="s1">([])</span>
+        <span class="s1">});</span>
+
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">productService</span>
+            <span class="s1">.</span><span class="s4">getAllProducts</span><span class="s1">()</span>
+            <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">products </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">products </span><span class="s0">= </span><span class="s2">products</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">ngOnInit()</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s0">if </span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">) {</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeForm</span><span class="s1">.</span><span class="s4">patchValue</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">);</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">let </span><span class="s1">ingredient </span><span class="s0">of </span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">.</span><span class="s2">ingredients</span><span class="s1">)</span>
+                <span class="s2">this</span><span class="s1">.</span><span class="s4">addIngredientControlWithValues</span><span class="s1">(</span><span class="s2">ingredient</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(</span><span class="s0">!</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">)</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s4">addIngredientControl</span><span class="s1">();</span>
+
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">productService</span>
+            <span class="s1">.</span><span class="s4">getAllProducts</span><span class="s1">()</span>
+            <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(</span><span class="s2">products </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">products </span><span class="s0">= </span><span class="s2">products</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s0">get </span><span class="s1">ingredientControls()</span><span class="s0">: </span><span class="s2">FormArray </span><span class="s1">{</span>
+        <span class="s0">return </span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeForm</span><span class="s1">?.</span><span class="s4">get</span><span class="s1">(</span><span class="s3">'ingredients'</span><span class="s1">) </span><span class="s0">as </span><span class="s2">FormArray</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">addIngredientControl() {</span>
+        <span class="s0">const </span><span class="s1">ingredientGroup </span><span class="s0">= </span><span class="s2">this</span><span class="s1">.</span><span class="s2">fb</span><span class="s1">.</span><span class="s4">group</span><span class="s1">({</span>
+            <span class="s1">id: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(),</span>
+            <span class="s1">name: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s3">''</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">),</span>
+            <span class="s1">amountInRecipe: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s3">''</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">),</span>
+            <span class="s1">unitOfMeasure: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">eUnitOfMeasure</span><span class="s1">.</span><span class="s2">PIECE</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">)</span>
+        <span class="s1">});</span>
+
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">ingredientControls</span><span class="s1">.</span><span class="s4">push</span><span class="s1">(</span><span class="s2">ingredientGroup</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">addIngredientControlWithValues(</span><span class="s2">ingredient</span><span class="s0">: </span><span class="s2">Ingredient</span><span class="s1">) {</span>
+        <span class="s0">const </span><span class="s1">ingredientGroup </span><span class="s0">= </span><span class="s2">this</span><span class="s1">.</span><span class="s2">fb</span><span class="s1">.</span><span class="s4">group</span><span class="s1">({</span>
+            <span class="s1">id: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">ingredient</span><span class="s1">.</span><span class="s2">id</span><span class="s1">),</span>
+            <span class="s1">name: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">ingredient</span><span class="s1">.</span><span class="s2">name</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">),</span>
+            <span class="s1">amountInRecipe: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">ingredient</span><span class="s1">.</span><span class="s2">amountInRecipe</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">),</span>
+            <span class="s1">unitOfMeasure: </span><span class="s0">new </span><span class="s4">FormControl</span><span class="s1">(</span><span class="s2">ingredient</span><span class="s1">.</span><span class="s2">unitOfMeasure</span><span class="s1">, </span><span class="s2">Validators</span><span class="s1">.</span><span class="s2">required</span><span class="s1">)</span>
+        <span class="s1">});</span>
+
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">ingredientControls</span><span class="s1">.</span><span class="s4">push</span><span class="s1">(</span><span class="s2">ingredientGroup</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">removeIngredientControl(</span><span class="s2">index</span><span class="s0">: </span><span class="s2">number</span><span class="s1">)</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s2">this</span><span class="s1">.</span><span class="s2">ingredientControls</span><span class="s1">.</span><span class="s4">removeAt</span><span class="s1">(</span><span class="s2">index</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">saveRecipe(</span><span class="s2">recipe</span><span class="s0">: </span><span class="s2">Recipe</span><span class="s1">)</span><span class="s0">: </span><span class="s2">void </span><span class="s1">{</span>
+        <span class="s0">if </span><span class="s1">(</span><span class="s2">this</span><span class="s1">.</span><span class="s2">recipeToEdit</span><span class="s1">)</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+                <span class="s1">.</span><span class="s4">updateRecipe</span><span class="s1">(</span><span class="s2">recipe</span><span class="s1">)</span>
+                <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">( () </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">router</span><span class="s1">.</span><span class="s4">navigate</span><span class="s1">([</span><span class="s3">`/recipes`</span><span class="s1">]));</span>
+        <span class="s0">else</span>
+            <span class="s2">this</span><span class="s1">.</span><span class="s2">recipeService</span>
+                <span class="s1">.</span><span class="s4">createRecipe</span><span class="s1">(</span><span class="s2">recipe</span><span class="s1">)</span>
+                <span class="s1">.</span><span class="s4">subscribe</span><span class="s1">(() </span><span class="s0">=&gt; </span><span class="s2">this</span><span class="s1">.</span><span class="s2">router</span><span class="s1">.</span><span class="s4">navigate</span><span class="s1">([</span><span class="s3">`/recipes`</span><span class="s1">]));</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

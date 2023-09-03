@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>product-item.component.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #bababa;}
+.s3 { color: #a5c261;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+product-item.component.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;div&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;flex-container&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;flex-element&quot;</span>
+             <span class="s2">[class.empty]</span><span class="s3">=&quot;product.amountInStock === 0&quot;</span>
+             <span class="s2">[class.expired]</span><span class="s3">=&quot;isExpired(product.expirationDate)&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;img </span><span class="s2">*ngIf</span><span class="s3">=&quot;product.imageUrl; else emptyImg&quot; </span><span class="s2">[src]</span><span class="s3">=&quot;product.imageUrl&quot; </span><span class="s2">height</span><span class="s3">=&quot;100px&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;ng-template </span><span class="s2">#emptyImg</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;assets/empty-picture.jpg&quot; </span><span class="s2">height</span><span class="s3">=&quot;100px&quot; </span><span class="s2">class</span><span class="s3">=&quot;image&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;/ng-template&gt;</span>
+
+            <span class="s0">&lt;div&gt;</span>
+                <span class="s0">&lt;h2 </span><span class="s2">style</span><span class="s3">=&quot;text-align: center&quot;</span><span class="s0">&gt;</span><span class="s1">{{product.name}}</span><span class="s0">&lt;/h2&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+</pre>
+</body>
+</html>

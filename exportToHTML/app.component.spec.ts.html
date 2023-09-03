@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>app.component.spec.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+.s4 { color: #ffc66d;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+app.component.spec.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">{ </span><span class="s2">TestBed </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/core/testing'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RouterTestingModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/router/testing'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">AppComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./app.component'</span><span class="s1">;</span>
+
+<span class="s4">describe</span><span class="s1">(</span><span class="s3">'AppComponent'</span><span class="s1">, () </span><span class="s0">=&gt; </span><span class="s1">{</span>
+    <span class="s4">beforeEach</span><span class="s1">(</span><span class="s0">async </span><span class="s1">() </span><span class="s0">=&gt; </span><span class="s1">{</span>
+        <span class="s0">await </span><span class="s2">TestBed</span><span class="s1">.</span><span class="s4">configureTestingModule</span><span class="s1">({</span>
+            <span class="s1">imports: [</span>
+                <span class="s2">RouterTestingModule</span>
+            <span class="s1">],</span>
+            <span class="s1">declarations: [</span>
+                <span class="s2">AppComponent</span>
+            <span class="s1">],</span>
+        <span class="s1">}).</span><span class="s4">compileComponents</span><span class="s1">();</span>
+    <span class="s1">});</span>
+
+    <span class="s4">it</span><span class="s1">(</span><span class="s3">'should create the app'</span><span class="s1">, () </span><span class="s0">=&gt; </span><span class="s1">{</span>
+        <span class="s0">const </span><span class="s1">fixture </span><span class="s0">= </span><span class="s2">TestBed</span><span class="s1">.</span><span class="s4">createComponent</span><span class="s1">(</span><span class="s2">AppComponent</span><span class="s1">);</span>
+        <span class="s0">const </span><span class="s1">app </span><span class="s0">= </span><span class="s2">fixture</span><span class="s1">.</span><span class="s2">componentInstance</span><span class="s1">;</span>
+        <span class="s4">expect</span><span class="s1">(</span><span class="s2">app</span><span class="s1">).</span><span class="s4">toBeTruthy</span><span class="s1">();</span>
+    <span class="s1">});</span>
+
+    <span class="s4">it</span><span class="s1">(</span><span class="s3">`should have as title 'recipe-app'`</span><span class="s1">, () </span><span class="s0">=&gt; </span><span class="s1">{</span>
+        <span class="s0">const </span><span class="s1">fixture </span><span class="s0">= </span><span class="s2">TestBed</span><span class="s1">.</span><span class="s4">createComponent</span><span class="s1">(</span><span class="s2">AppComponent</span><span class="s1">);</span>
+        <span class="s0">const </span><span class="s1">app </span><span class="s0">= </span><span class="s2">fixture</span><span class="s1">.</span><span class="s2">componentInstance</span><span class="s1">;</span>
+        <span class="s4">expect</span><span class="s1">(</span><span class="s2">app</span><span class="s1">.</span><span class="s2">title</span><span class="s1">).</span><span class="s4">toEqual</span><span class="s1">(</span><span class="s3">'recipe-app'</span><span class="s1">);</span>
+    <span class="s1">});</span>
+
+    <span class="s4">it</span><span class="s1">(</span><span class="s3">'should render title'</span><span class="s1">, () </span><span class="s0">=&gt; </span><span class="s1">{</span>
+        <span class="s0">const </span><span class="s1">fixture </span><span class="s0">= </span><span class="s2">TestBed</span><span class="s1">.</span><span class="s4">createComponent</span><span class="s1">(</span><span class="s2">AppComponent</span><span class="s1">);</span>
+        <span class="s2">fixture</span><span class="s1">.</span><span class="s4">detectChanges</span><span class="s1">();</span>
+        <span class="s0">const </span><span class="s1">compiled </span><span class="s0">= </span><span class="s2">fixture</span><span class="s1">.</span><span class="s2">nativeElement </span><span class="s0">as </span><span class="s2">HTMLElement</span><span class="s1">;</span>
+        <span class="s4">expect</span><span class="s1">(</span><span class="s2">compiled</span><span class="s1">.</span><span class="s4">querySelector</span><span class="s1">(</span><span class="s3">'.content span'</span><span class="s1">)?.</span><span class="s2">textContent</span><span class="s1">).</span><span class="s4">toContain</span><span class="s1">(</span><span class="s3">'recipe-app app is running!'</span><span class="s1">);</span>
+    <span class="s1">});</span>
+<span class="s1">});</span>
+</pre>
+</body>
+</html>

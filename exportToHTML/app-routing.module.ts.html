@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>app-routing.module.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+.s4 { color: #ffc66d;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+app-routing.module.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">{ </span><span class="s2">NgModule </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/core'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RouterModule</span><span class="s1">, </span><span class="s2">Routes </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'@angular/router'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeListComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/recipe-list/recipe-list.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeDetailsComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/recipe-details/recipe-details.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">RecipeFormComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/recipe-form/recipe-form.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductOverviewComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-overview/product-overview.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductDetailsComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-details/product-details.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ProductFormComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/product-form/product-form.component'</span><span class="s1">;</span>
+<span class="s0">import </span><span class="s1">{ </span><span class="s2">ErrorPageComponent </span><span class="s1">} </span><span class="s0">from </span><span class="s3">'./components/error-page/error-page.component'</span><span class="s1">;</span>
+
+<span class="s0">const </span><span class="s1">routes</span><span class="s0">: </span><span class="s2">Routes </span><span class="s0">= </span><span class="s1">[</span>
+    <span class="s1">{path: </span><span class="s3">''</span><span class="s1">, redirectTo: </span><span class="s3">'recipes'</span><span class="s1">, pathMatch: </span><span class="s3">'full'</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'recipes'</span><span class="s1">, component: </span><span class="s2">RecipeListComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'recipes/:id'</span><span class="s1">, component: </span><span class="s2">RecipeDetailsComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'createRecipe'</span><span class="s1">, component: </span><span class="s2">RecipeFormComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'ingredients/:id'</span><span class="s1">, component: </span><span class="s2">RecipeDetailsComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'product-overview'</span><span class="s1">, component: </span><span class="s2">ProductOverviewComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'product-detail/:id'</span><span class="s1">, component: </span><span class="s2">ProductDetailsComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'product-form'</span><span class="s1">, component: </span><span class="s2">ProductFormComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'product-form/:id'</span><span class="s1">, component: </span><span class="s2">ProductFormComponent</span><span class="s1">},</span>
+    <span class="s1">{path: </span><span class="s3">'**'</span><span class="s1">, component: </span><span class="s2">ErrorPageComponent </span><span class="s1">},</span>
+<span class="s1">];</span>
+
+<span class="s1">@</span><span class="s4">NgModule</span><span class="s1">({</span>
+    <span class="s1">imports: [</span><span class="s2">RouterModule</span><span class="s1">.</span><span class="s4">forRoot</span><span class="s1">(</span><span class="s2">routes</span><span class="s1">)],</span>
+    <span class="s1">exports: [</span><span class="s2">RouterModule</span><span class="s1">],</span>
+
+<span class="s1">})</span>
+<span class="s0">export class </span><span class="s2">AppRoutingModule </span><span class="s1">{ }</span>
+</pre>
+</body>
+</html>

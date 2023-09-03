@@ -1,0 +1,51 @@
+* {
+    font-family: Arial, serif;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-content: center;
+    align-items: stretch;
+}
+
+.flex-element {
+    border: 5px solid #343F71;
+    background-color: #E9D8E4;
+    border-radius: 10px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 150px;
+    margin: 20px 10px 24px;
+    padding: 10px;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+.recipe-instructions {
+    white-space: pre-wrap;
+}

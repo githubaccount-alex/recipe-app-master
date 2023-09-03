@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>unitOfMeasure.ts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+unitOfMeasure.ts</font>
+</center></td></tr></table>
+<pre><span class="s0">export enum </span><span class="s2">UnitOfMeasure </span><span class="s1">{</span>
+    <span class="s2">PIECE </span><span class="s0">= </span><span class="s3">&quot;PIECE&quot;</span><span class="s1">,</span>
+    <span class="s2">GRAM </span><span class="s0">= </span><span class="s3">&quot;GRAM&quot;</span><span class="s1">,</span>
+    <span class="s2">KILOGRAM </span><span class="s0">= </span><span class="s3">&quot;KILOGRAM&quot;</span><span class="s1">,</span>
+    <span class="s2">MILLILITER </span><span class="s0">= </span><span class="s3">&quot;MILLILITER&quot;</span><span class="s1">,</span>
+    <span class="s2">LITER </span><span class="s0">= </span><span class="s3">&quot;LITER&quot;</span>
+<span class="s1">}</span>
+
+<span class="s0">export function </span><span class="s1">getUnitDisplayValue(</span><span class="s2">unit</span><span class="s0">: </span><span class="s2">string</span><span class="s1">)</span><span class="s0">: </span><span class="s2">string </span><span class="s1">{</span>
+    <span class="s0">switch </span><span class="s1">(</span><span class="s2">unit</span><span class="s1">) {</span>
+        <span class="s0">case </span><span class="s2">UnitOfMeasure</span><span class="s1">.</span><span class="s2">PIECE</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">'Stück'</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">UnitOfMeasure</span><span class="s1">.</span><span class="s2">GRAM</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">'g'</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">UnitOfMeasure</span><span class="s1">.</span><span class="s2">KILOGRAM</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">'kg'</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">UnitOfMeasure</span><span class="s1">.</span><span class="s2">MILLILITER</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">'ml'</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">UnitOfMeasure</span><span class="s1">.</span><span class="s2">LITER</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">'l'</span><span class="s1">;</span>
+        <span class="s0">default</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">'unbekannt'</span><span class="s1">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
