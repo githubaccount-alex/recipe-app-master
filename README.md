@@ -1,17 +1,5 @@
 # Smarter Kühlschrank
 
-Abschlussprojekt von Alexander, Sebastian und Benjamin.
-
-## About
-
-**Was kann ich kochen?**
-
-Diese mehrmals täglich gestellte Frage soll die folgende App beantworten!
-
-Füge Deinem Kühlschrank Zutaten hinzu, erstelle neue Rezepte und filtere danach
-Deine Rezepte nach vorhandenen Zutaten.
-
-
 ## Installation
 
 Führe folgende Befehle in einer Bash-kompatiblen _shell_ aus:
